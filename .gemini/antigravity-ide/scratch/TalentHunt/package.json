@@ -1,0 +1,16 @@
+{
+  "name": "talent-hunt",
+  "version": "1.0.0",
+  "description": "Talent Hunt Platform Web Application",
+  "scripts": {
+    "dev": "run.bat",
+    "start": "run.bat",
+    "build": "\"C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\javac.exe\" -cp \"lib/h2.jar;lib/mysql-connector.jar;lib/javax.servlet-api.jar\" -d bin src/main/java/com/talenthunt/exception/*.java src/main/java/com/talenthunt/util/*.java src/main/java/com/talenthunt/model/*.java src/main/java/com/talenthunt/db/*.java src/main/java/com/talenthunt/dao/*.java src/main/java/com/talenthunt/service/*.java src/main/java/com/talenthunt/service/impl/*.java src/main/java/com/talenthunt/servlet/*.java src/main/java/com/talenthunt/server/*.java"
+  },
+  "keywords": [
+    "talent-hunt",
+    "java"
+  ],
+  "author": "",
+  "license": "ISC"
+}

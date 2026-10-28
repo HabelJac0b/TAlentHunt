@@ -1,0 +1,9 @@
+{
+  "$schema": "TalentHunt Phase 3 - Simple User Data Structure Specification (CLO 2)",
+  "id": 1,
+  "name": "Alex Rivera",
+  "email": "alex@talenthunt.com",
+  "role": "CONTESTANT",
+  "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+  "bio": "Passionate acoustic guitarist & vocalist from Seattle. Ready to share original music with the world."
+}

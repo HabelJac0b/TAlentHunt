@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalentHunt — Discover. Compete. Shine.</title>
+  <meta name="description" content="TalentHunt is the premier platform for discovering extraordinary talent through thrilling competitions. Register, compete, vote, and shine!">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     PRELOADER SCREEN
+     ════════════════════════════════════════════════════════════ -->
+<div id="preloader">
+  <div class="pl-particles" id="plParticles"></div>
+  <div class="pl-stage">
+    <div class="pl-ring-wrap">
+      <div class="pl-ring"></div>
+      <div class="pl-ring-inner"></div>
+      <div class="pl-icon"><i class="fa-solid fa-trophy"></i></div>
+    </div>
+    <h1 class="pl-title">Talent<span class="highlight">Hunt</span></h1>
+    <p class="pl-subtitle">Discover · Compete · Shine</p>
+    <div class="pl-bar-track">
+      <div class="pl-bar-fill" id="plBar"></div>
+    </div>
+    <span class="pl-pct" id="plPct">0%</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     LOGIN SCREEN
+     ════════════════════════════════════════════════════════════ -->
+<div id="loginScreen">
+  <!-- Background stars -->
+  <div class="login-stars" id="loginStars"></div>
+
+  <div class="login-card">
+    <!-- Brand header -->
+    <div class="login-brand">
+      <div class="login-brand-icon"><i class="fa-solid fa-trophy"></i></div>
+      <h2>Talent<span class="highlight">Hunt</span></h2>
+      <p>The Global Stage for Extraordinary Talent</p>
+    </div>
+
+    <!-- Auth Error -->
+    <div class="auth-error" id="authError">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span id="authErrorMsg">Invalid credentials. Please try again.</span>
+    </div>
+
+    <!-- Tab selector -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabUser" data-tab="user">
+        <i class="fa-solid fa-user"></i> Contestant
+      </button>
+      <button class="auth-tab" id="tabAdmin" data-tab="admin">
+        <i class="fa-solid fa-shield-halved"></i> Admin
+      </button>
+    </div>
+
+    <!-- USER Login Form -->
+    <form class="auth-form active" id="userLoginForm">
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <i class="fa-regular fa-envelope"></i>
+          <input type="email" id="uEmail" placeholder="your@email.com" autocomplete="username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="uPassword" placeholder="••••••••" autocomplete="current-password">
+        </div>
+      </div>
+      <button type="submit" class="btn-login" id="userLoginBtn">
+        <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In as Contestant
+      </button>
+      <p class="login-hint">No account? <span id="goRegister">Register for free</span></p>
+      <p class="demo-hint">Demo: <span id="fillUser">user@talenthunt.com / user123</span></p>
+    </form>
+
+    <!-- USER Register Form -->
+    <form class="auth-form" id="userRegisterForm">
+      <div class="form-group">
+        <label>Full Name</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" id="rName" placeholder="Your full name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <div class="input-wrap">
+          <i class="fa-regular fa-envelope"></i>
+          <input type="email" id="rEmail" placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" id="rPassword" placeholder="Min 6 characters">
+        </div>
+      </div>
+      <button type="submit" class="btn-login">
+        <i class="fa-solid fa-user-plus"></i> Create Account
+      </button>
+      <p class="login-hint">Have an account? <span id="goLogin">Sign in</span></p>
+    </form>
+
+    <!-- ADMIN Login Form -->
+    <form class="auth-form" id="adminLoginForm">
+      <div class="form-group">
+        <label>Admin Username</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-shield-halved"></i>
+          <input type="text" id="aUser" placeholder="admin" autocomplete="username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Admin Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-key"></i>
+          <input type="password" id="aPassword" placeholder="••••••••" autocomplete="current-password">
+        </div>
+      </div>
+      <button type="submit" class="btn-login" style="background: linear-gradient(135deg, #7b2ff7, #4a00b4);">
+        <i class="fa-solid fa-terminal"></i> Admin Sign In
+      </button>
+      <p class="demo-hint">Demo: <span id="fillAdmin">admin / admin123</span></p>
+    </form>
+    <div style="text-align:center;margin-top:16px;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;">
+      <a href="login.jsp" style="font-size:0.82rem;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+        <i class="fa-solid fa-server"></i> Switch to Servlets &amp; JSP Portal (Course Phase 4) &rarr;
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     MAIN WEBSITE
+     ════════════════════════════════════════════════════════════ -->
+<div id="mainWebsite">
+
+  <!-- ── NAVBAR ─────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-logo" id="navLogo">
+      <div class="nav-logo-icon"><i class="fa-solid fa-trophy"></i></div>
+      Talent<span class="highlight">Hunt</span>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <button class="nav-link active" data-page="home" id="navHome">
+        <i class="fa-solid fa-house"></i> Home
+      </button>
+      <button class="nav-link" data-page="competitions" id="navCompetitions">
+        <i class="fa-solid fa-medal"></i> Competitions
+      </button>
+      <button class="nav-link" data-page="talents" id="navTalents">
+        <i class="fa-solid fa-star"></i> Talents
+      </button>
+      <button class="nav-link" data-page="leaderboard" id="navLeaderboard">
+        <i class="fa-solid fa-chart-bar"></i> Leaderboard
+      </button>
+      <button class="nav-link" data-page="submit" id="navSubmit">
+        <i class="fa-solid fa-upload"></i> Submit
+      </button>
+      <button class="nav-link admin-only" data-page="admin" id="navAdmin" style="display:none;">
+        <i class="fa-solid fa-gauge"></i> Dashboard
+      </button>
+      <a href="login.jsp" class="nav-link" id="navJsp" style="color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+        <i class="fa-solid fa-server"></i> JSP Portal
+      </a>
+    </div>
+
+    <div class="nav-user" id="navUser">
+      <div class="nav-avatar" id="navAvatar">?</div>
+      <div>
+        <div class="nav-username" id="navUsername">Guest</div>
+        <div class="nav-role-badge" id="navRoleBadge">USER</div>
+      </div>
+      <button class="btn-logout" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+    </div>
+  </nav>
+
+  <!-- ── HOME PAGE ────────────────────────────────────────────── -->
+  <div class="page active" id="pageHome">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-spotlight"></div>
+      <div class="hero-stars" id="heroStars"></div>
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Season 2026 — Now Open</div>
+        <h1 class="hero-title">
+          Discover the World's<br>
+          <span class="line2">Greatest Talent</span>
+        </h1>
+        <p class="hero-desc">TalentHunt is the premier global stage where hidden gems shine. Compete across singing, dancing, art, and more — and let the world recognize your brilliance.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" id="heroEnterBtn">
+            <i class="fa-solid fa-play"></i> Enter a Competition
+          </button>
+          <button class="btn-outline" id="heroExploreBtn">
+            <i class="fa-solid fa-binoculars"></i> Explore Talents
+          </button>
+        </div>
+
+        <div class="hero-stats" id="heroStats">
+          <div class="hero-stat" style="animation-delay:0.1s">
+            <span class="hero-stat-num" id="statTalents">—</span>
+            <span class="hero-stat-lbl">Talents Registered</span>
+          </div>
+          <div class="hero-stat" style="animation-delay:0.2s">
+            <span class="hero-stat-num" id="statCompetitions">—</span>
+            <span class="hero-stat-lbl">Active Competitions</span>
+          </div>
+          <div class="hero-stat" style="animation-delay:0.3s">
+            <span class="hero-stat-num" id="statVotes">—</span>
+            <span class="hero-stat-lbl">Total Votes Cast</span>
+          </div>
+          <div class="hero-stat" style="animation-delay:0.4s">
+            <span class="hero-stat-num" id="statSubmissions">—</span>
+            <span class="hero-stat-lbl">Submissions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Features Section -->
+    <div class="section reveal">
+      <div class="section-header">
+        <div class="section-tag"><i class="fa-solid fa-star"></i> Why TalentHunt</div>
+        <h2 class="section-title">A Stage Built for<span class="highlight"> Champions</span></h2>
+        <p class="section-desc">Everything you need to discover, showcase, and celebrate extraordinary talent.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fa-solid fa-globe"></i></div>
+          <h3>Global Competitions</h3>
+          <p>Compete alongside talents from every corner of the world across multiple categories including music, dance, art, sports, and more.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:0.1s">
+          <div class="feature-icon"><i class="fa-solid fa-hand-point-up"></i></div>
+          <h3>Community Voting</h3>
+          <p>Let the community decide! Cast your votes for your favourite talents and help discover the next superstar.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:0.2s">
+          <div class="feature-icon"><i class="fa-solid fa-ranking-star"></i></div>
+          <h3>Live Leaderboard</h3>
+          <p>Real-time rankings updated instantly as votes pour in. Watch your position climb and fight for the top spot.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:0.3s">
+          <div class="feature-icon"><i class="fa-solid fa-trophy"></i></div>
+          <h3>Cash Prizes</h3>
+          <p>Winners earn real rewards. Our prize pool grows with every season — because talent deserves recognition.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:0.4s">
+          <div class="feature-icon"><i class="fa-solid fa-gavel"></i></div>
+          <h3>Expert Judging</h3>
+          <p>Industry professionals review and score your submissions, providing valuable feedback and professional exposure.</p>
+        </div>
+        <div class="feature-card reveal" style="transition-delay:0.5s">
+          <div class="feature-icon"><i class="fa-solid fa-shield"></i></div>
+          <h3>Secure &amp; Fair</h3>
+          <p>A transparent, anti-fraud system ensures every vote is legitimate and every competition is conducted fairly.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pageHome -->
+
+  <!-- ── COMPETITIONS PAGE ──────────────────────────────────── -->
+  <div class="page" id="pageCompetitions">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-tag"><i class="fa-solid fa-medal"></i> Competitions</div>
+        <h2 class="section-title">Find Your <span class="highlight">Battle Ground</span></h2>
+        <p class="section-desc">Browse open competitions and submit your talent today.</p>
+      </div>
+      <div class="competitions-grid" id="competitionsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TALENTS PAGE ──────────────────────────────────────── -->
+  <div class="page" id="pageTalents">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-tag"><i class="fa-solid fa-star"></i> Talents</div>
+        <h2 class="section-title">Meet the <span class="highlight">Stars</span></h2>
+        <p class="section-desc">Browse registered talents and vote for your favourites.</p>
+      </div>
+
+      <div class="search-bar-wrap reveal">
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="talentSearch" placeholder="Search by name, category…">
+        </div>
+        <select class="filter-select" id="categoryFilter">
+          <option value="">All Categories</option>
+          <option value="Singing">Singing</option>
+          <option value="Dancing">Dancing</option>
+          <option value="Art">Art</option>
+          <option value="Sports">Sports</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Acting">Acting</option>
+          <option value="Music">Music</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="talents-grid" id="talentsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LEADERBOARD PAGE ──────────────────────────────────── -->
+  <div class="page" id="pageLeaderboard">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-tag"><i class="fa-solid fa-chart-bar"></i> Leaderboard</div>
+        <h2 class="section-title">Top <span class="highlight">Performers</span></h2>
+        <p class="section-desc">Live rankings powered by community votes and expert scores.</p>
+      </div>
+      <div class="leaderboard-table-wrap reveal">
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Talent</th>
+              <th>Category</th>
+              <th>Score</th>
+              <th>Votes</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUBMIT PAGE ───────────────────────────────────────── -->
+  <div class="page" id="pageSubmit">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-tag"><i class="fa-solid fa-upload"></i> Submit Entry</div>
+        <h2 class="section-title">Share Your <span class="highlight">Talent</span></h2>
+        <p class="section-desc">Submit your entry and let the world discover you.</p>
+      </div>
+      <div class="submit-layout">
+        <div class="submit-form-card reveal">
+          <h2>Entry Submission</h2>
+          <p>Fill in the details below to submit your talent entry for the competition.</p>
+
+          <form id="submitEntryForm">
+            <div class="form-row">
+              <div class="form-field">
+                <label>Full Name</label>
+                <input type="text" class="form-input" id="sfName" placeholder="Your full name">
+              </div>
+              <div class="form-field">
+                <label>Email Address</label>
+                <input type="email" class="form-input" id="sfEmail" placeholder="your@email.com">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label>Talent Category</label>
+                <select class="form-select" id="sfCategory">
+                  <option value="">Select a category</option>
+                  <option>Singing</option>
+                  <option>Dancing</option>
+                  <option>Art</option>
+                  <option>Sports</option>
+                  <option>Comedy</option>
+                  <option>Acting</option>
+                  <option>Music</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Competition</label>
+                <select class="form-select" id="sfCompetition">
+                  <option value="">Select competition</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label>Performance Title</label>
+              <input type="text" class="form-input" id="sfTitle" placeholder="e.g., 'Moonlight Sonata Cover'">
+            </div>
+
+            <div class="form-field">
+              <label>Bio / Description</label>
+              <textarea class="form-textarea" id="sfBio" placeholder="Tell us about yourself and your talent…"></textarea>
+            </div>
+
+            <div class="form-field">
+              <label>Media Link (YouTube, Drive, etc.)</label>
+              <input type="url" class="form-input" id="sfMedia" placeholder="https://youtube.com/watch?v=...">
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitEntryBtn">
+              <i class="fa-solid fa-paper-plane"></i> Submit My Entry
+            </button>
+          </form>
+        </div>
+
+        <div class="submit-sidebar">
+          <div class="sidebar-card reveal">
+            <h4><i class="fa-solid fa-circle-info"></i> Guidelines</h4>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> Entries must be original work</li>
+              <li><i class="fa-solid fa-check"></i> All categories are welcome</li>
+              <li><i class="fa-solid fa-check"></i> Media links must be publicly accessible</li>
+              <li><i class="fa-solid fa-check"></i> One submission per competition</li>
+              <li><i class="fa-solid fa-check"></i> Judging begins after the deadline</li>
+            </ul>
+          </div>
+          <div class="sidebar-card reveal" style="transition-delay:0.15s">
+            <h4><i class="fa-solid fa-clock"></i> Key Dates</h4>
+            <ul>
+              <li><i class="fa-solid fa-calendar"></i> Submission deadline: Oct 31, 2026</li>
+              <li><i class="fa-solid fa-calendar"></i> Judging period: Nov 1–15, 2026</li>
+              <li><i class="fa-solid fa-calendar"></i> Winners announced: Nov 20, 2026</li>
+            </ul>
+          </div>
+          <div class="sidebar-card reveal" style="transition-delay:0.3s">
+            <h4><i class="fa-solid fa-trophy"></i> Prize Pool</h4>
+            <ul>
+              <li><i class="fa-solid fa-medal" style="color:#ffd700"></i> 1st Place — ₹50,000</li>
+              <li><i class="fa-solid fa-medal" style="color:#c0c0c0"></i> 2nd Place — ₹25,000</li>
+              <li><i class="fa-solid fa-medal" style="color:#cd7f32"></i> 3rd Place — ₹10,000</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ADMIN DASHBOARD PAGE ─────────────────────────────── -->
+  <div class="page" id="pageAdmin">
+    <div class="section">
+      <div class="section-header reveal">
+        <div class="section-tag"><i class="fa-solid fa-gauge"></i> Admin</div>
+        <h2 class="section-title">Admin <span class="highlight">Dashboard</span></h2>
+        <p class="section-desc">Manage competitions, submissions, and talents.</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="admin-grid reveal">
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="fa-solid fa-users"></i></div>
+          <div>
+            <div class="admin-stat-val" id="aTalents">—</div>
+            <div class="admin-stat-lbl">Total Talents</div>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="fa-solid fa-medal"></i></div>
+          <div>
+            <div class="admin-stat-val" id="aCompetitions">—</div>
+            <div class="admin-stat-lbl">Competitions</div>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="fa-solid fa-file-lines"></i></div>
+          <div>
+            <div class="admin-stat-val" id="aSubmissions">—</div>
+            <div class="admin-stat-lbl">Submissions</div>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="fa-solid fa-hand-point-up"></i></div>
+          <div>
+            <div class="admin-stat-val" id="aVotes">—</div>
+            <div class="admin-stat-lbl">Total Votes</div>
+          </div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-icon"><i class="fa-solid fa-database"></i></div>
+          <div>
+            <div class="admin-stat-val" style="font-size:1rem;" id="aDb">H2</div>
+            <div class="admin-stat-lbl">DB Engine</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tables -->
+      <div class="admin-tables-row reveal">
+        <!-- Recent Submissions -->
+        <div class="admin-table-card">
+          <div class="admin-table-card-header">
+            <h3><i class="fa-solid fa-file-lines" style="color:var(--gold)"></i> Recent Submissions</h3>
+            <button class="btn-outline" style="padding:6px 14px;font-size:0.8rem;" onclick="window.location.reload()">
+              <i class="fa-solid fa-rotate"></i> Refresh
+            </button>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Talent</th>
+                <th>Category</th>
+                <th>Competition</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminSubmissionsTable">
+              <tr><td colspan="5" class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Talents list -->
+        <div class="admin-table-card">
+          <div class="admin-table-card-header">
+            <h3><i class="fa-solid fa-star" style="color:var(--gold)"></i> Talents</h3>
+          </div>
+          <table class="admin-table">
+            <thead>
+              <tr><th>Name</th><th>Category</th><th>Votes</th></tr>
+            </thead>
+            <tbody id="adminTalentsTable">
+              <tr><td colspan="3" class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /mainWebsite -->
+
+<!-- ════════════════════════════════════════════════════════════
+     TOAST CONTAINER
+     ════════════════════════════════════════════════════════════ -->
+<div id="toastContainer"></div>
+
+<!-- ════════════════════════════════════════════════════════════
+     VOTE MODAL
+     ════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="voteModal">
+  <div class="modal-box">
+    <h3 style="font-family:'Syne',sans-serif;font-size:1.3rem;margin-bottom:8px;">
+      <i class="fa-solid fa-star" style="color:var(--gold)"></i> Cast Your Vote
+    </h3>
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:22px;">
+      You're voting for: <strong id="voteModalName"></strong>
+    </p>
+    <div style="display:flex;gap:12px;">
+      <button class="btn-primary" style="flex:1" id="voteConfirmBtn">
+        <i class="fa-solid fa-check"></i> Confirm Vote
+      </button>
+      <button class="btn-outline" style="flex:1" id="voteCancelBtn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- JS -->
+<script src="js/app.js"></script>
+</body>
+</html>
